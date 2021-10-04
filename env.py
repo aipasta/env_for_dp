@@ -105,7 +105,7 @@ class Environment():
     row, col = self.state_to_map[state]
     return self.map[row][col]
 
-  def _get_next_state(self, state: int, action: int) -> int:
+  def get_next_state(self, state: int, action: int) -> int:
     row, col = self.state_to_map[state]
 
     # If the agent achieves the goal, the episode terminates. So there is no
@@ -129,7 +129,7 @@ class Environment():
 
   def get_transition_probability(self, state: int, action: int,
                                  next_state: int) -> float:
-    if self._get_next_state(state, action) == next_state:
+    if self.get_next_state(state, action) == next_state:
       return 1.0
     else:
       return 0.0
@@ -171,7 +171,7 @@ class Environment():
 if __name__ == '__main__':
 
   env = Environment(map_data_2)
-  env._get_next_state(10, Action.DOWN)
+  env.get_next_state(10, Action.DOWN)
   v = [0] * env.num_state
   env.pretty_print_value_function(v)
   env.plot_value_function(v)

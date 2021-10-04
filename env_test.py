@@ -38,11 +38,11 @@ class TestEnv(unittest.TestCase):
                          [3, Action.RIGHT, 3],
                          [1, Action.LEFT, 0]])
   def test_get_next_state(self, state, action, expected_next_state):
-    self.assertEqual(self.env._get_next_state(state, action),
+    self.assertEqual(self.env.get_next_state(state, action),
                      expected_next_state)
 
   def test_get_next_state_for_goal_state(self):
-    self.assertEqual(self.env._get_next_state(0, Action.DOWN), 0)
+    self.assertEqual(self.env.get_next_state(0, Action.DOWN), 0)
 
   @parameterized.expand([[1, Action.RIGHT, 2, 1.],
                          [3, Action.RIGHT, 3, 1.],
