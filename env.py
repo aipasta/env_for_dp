@@ -67,6 +67,7 @@ class Environment():
     self.state_to_map, self.map_to_state = self._get_mapping_state_and_map()
     self.states = list(range(self.num_state))
     self.num_action = 4  # LEFT, DOWN, RIGHT, UP
+    self.actions = list(range(self.num_action))
 
   @property
   def num_state(self):
