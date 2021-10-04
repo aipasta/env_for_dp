@@ -146,14 +146,15 @@ class Environment():
     else:
       return -1.0
 
-  def value_function_with_structure(self, value_function: List) -> np.ndarray:
+  def value_function_with_structure(self,
+                                    value_function: np.ndarray) -> np.ndarray:
     arr = np.empty((self.map_height-2, self.map_width-2)) * np.nan
     for state in range(len(value_function)):
       row, col = self.state_to_map[state]
       arr[row-1, col-1] = value_function[state]
     return arr
 
-  def pretty_print_value_function(self, value_function: List):
+  def pretty_print_value_function(self, value_function: np.ndarray):
     arr = self.value_function_with_structure(value_function)
 
     with np.printoptions(precision=2, suppress=True):
