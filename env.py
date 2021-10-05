@@ -68,6 +68,9 @@ class Environment():
     self.states = list(range(self.num_state))
     self.num_action = 4  # LEFT, DOWN, RIGHT, UP
     self.actions = list(range(self.num_action))
+    self.reward_matrix = self.get_reward_matrix()
+    self.transistioin_probability_matrix =(
+      self.get_transistioin_probability_matrix())
 
   @property
   def num_state(self):
@@ -146,6 +149,23 @@ class Environment():
     else:
       return -1.0
 
+  def get_reward_matrix(self):
+    reward_matrix = np.zeros([self.num_state, self.num_action])
+    for s in self.states:
+      for a in self.actions:
+        reward_matrix[s, a] = self.get_reward(s, a)
+    return reward_matrix
+
+  def get_transistioin_probability_matrix(self):
+    transistioin_probability_matrix = np.zeros(
+      [self.num_state, self.num_action, self.num_state])
+    for s in self.states:
+      for a in self.actions:
+        for s_n in self.states:
+          transistioin_probability_matrix[s, a, s_n] = (
+            self.get_transition_probability(s, a, s_n))
+    return transistioin_probability_matrix
+
   def value_function_with_structure(self,
                                     value_function: np.ndarray) -> np.ndarray:
     arr = np.empty((self.map_height-2, self.map_width-2)) * np.nan
@@ -176,4 +196,7 @@ if __name__ == '__main__':
   env.get_next_state(10, Action.DOWN)
   v = [0] * env.num_state
   env.pretty_print_value_function(v)
-  env.plot_value_function(v)
+  # env.plot_value_function(v)
+  env = Environment(map_data_1)
+  print(env.transistioin_probability_matrix.shape)
+  print(env.reward_matrix.shape)
